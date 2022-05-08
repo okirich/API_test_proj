@@ -2,3 +2,8 @@
 env/
 # ignore vscode files
 .vscode/
+# ignore __pycahe__
+*.pyc
+__pycache__/
+# ignore db
+db.sqlite3
