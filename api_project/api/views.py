@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from .models import Address,Shop
 from .serializers import AddressSerializer,ShopSerializer
 from django.http import JsonResponse, response
-from rest_framework.status import HTTP_201_CREATED 
+from rest_framework.status import HTTP_201_CREATED,HTTP_400_BAD_REQUEST
 
 # Create your views here.
 
@@ -23,12 +23,14 @@ class AddressList(generics.ListCreateAPIView):
     serializer_class = AddressSerializer 
 
     def perform_create(self, serializer):
-        serializer.save()
-        response = JsonResponse(
-            {'id':serializer.data['id']},
-            status=HTTP_201_CREATED)
-        print(response.content)
-        return response
+        if serializer.is_valid():
+            serializer.save()
+            response = JsonResponse(
+                {'id':serializer.data['id']},
+                status=HTTP_201_CREATED)
+            print(response.content)
+            return response
+        return JsonResponse(serializer.errors, HTTP_400_BAD_REQUEST)
 
 class AddressDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Address.objects.all()
@@ -39,13 +41,15 @@ class ShopList(generics.ListCreateAPIView):
     serializer_class = ShopSerializer
 
     def perform_create(self, serializer):
-        serializer.save()
-        response = JsonResponse(
-            {'id':serializer.data['id'],
-            'name':serializer.data['name']},
-            status=HTTP_201_CREATED)
-        print(response.content)
-        return response
+        if serializer.is_valid():
+            serializer.save()
+            response = JsonResponse(
+                {'id':serializer.data['id'],
+                'name':serializer.data['name']},
+                status=HTTP_201_CREATED)
+            print(response.content)
+            return response
+        return JsonResponse(serializer.errors, HTTP_400_BAD_REQUEST)
 
 class ShopDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Shop.objects.all()
