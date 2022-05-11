@@ -6,7 +6,7 @@ class Address(models.Model):
     building = models.CharField(max_length=50)
 
     def __str__(self) -> str:
-        return self.street + '/' + self.building
+        return self.street + ' / ' + self.building
 
 class Shop(models.Model):
     name = models.CharField(max_length=200)
