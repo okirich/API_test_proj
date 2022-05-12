@@ -56,7 +56,7 @@ We're almost done! Let's initialize git in **our venv folder**! (*I hope that yo
    
 That's all! You're great! Evrything we need to test on our device!
 
-### 3. **Startup configuration and first run !**
+### 3. **Startup configuration and first run**
 
 Before you can test our project, we should to prepare some configurations.
 
